@@ -29,11 +29,10 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Install Capacitor CLI & Sync
+      - name: Install dependencies & sync Capacitor
         run: |
-          npm install -g @capacitor/cli@latest
-          npm install || true
-          npx cap sync android || true
+          npm install
+          npx cap sync android
 
       - name: Build Debug APK
         run: |
