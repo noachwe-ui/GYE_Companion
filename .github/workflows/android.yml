@@ -18,29 +18,28 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Sync Web Assets
+      - name: Install Capacitor CLI & Sync
         run: |
-          npm install -g @capacitor/cli
+          npm install -g @capacitor/cli@latest
           npm install || true
-          npm run build --if-present || true
-          npx cap copy android || npx cap sync android || true
+          npx cap sync android || true
 
       - name: Build Debug APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --stacktrace --no-daemon
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
