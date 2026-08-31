@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GYE Companion</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 20px;
+      padding: 28px 20px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .streak-badge {
+      background-color: #2a2a2a;
+      color: #ff9800;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 20px;
+      display: inline-block;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+    .status-text {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+    .connect-btn {
+      background: transparent;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 10px;
+      border-radius: 12px;
+      width: 100%;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    .quote-box {
+      margin: 20px 0 24px 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffffff;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.4;
+    }
+    .action-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 12px;
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+    }
+    .btn-blue { background-color: #0088cc; }
+    .btn-red { background-color: #d32f2f; }
+    .btn-green { background-color: #2e7d32; }
+
+    /* Hidden Settings Area */
+    .settings-drawer {
+      display: none;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #2a2a2a;
+      text-align: left;
+    }
+    .settings-toggle {
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 0.8rem;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    input[type="text"] {
+      width: 70%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background: #121212;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Streak Header -->
+    <div id="streak-badge" class="streak-badge">🔥 Streak: Offline</div>
+
+    <!-- Status -->
+    <div id="user-status" class="status-text">Not connected</div>
+
+    <!-- Account Button -->
+    <button id="auth-btn" class="connect-btn">Connect GYE Account</button>
+
+    <hr style="border: 0; border-top: 1px solid #2a2a2a; margin-bottom: 20px;" />
+
+    <!-- Inspirational Quote / Pause Message -->
+    <div id="quote-display" class="quote-box">
+      Taking a pause for safety...
+    </div>
+
+    <!-- Emergency Action Tools -->
+    <button class="action-btn btn-blue" id="watch-clip-btn">Watch a Clip</button>
+    <button class="action-btn btn-red" id="sos-btn">🚨 GYE SOS / Hotline</button>
+    <button class="action-btn btn-green" id="forum-btn">Open GYE Forum</button>
+
+    <!-- Subtle Footer Toggle to Manage Custom Block List & Permissions -->
+    <button class="settings-toggle" id="toggle-settings-btn">⚙️ Settings & Tools</button>
+
+
+<!-- Collapsible Settings Section -->
+<div class="settings-drawer" id="settings-drawer">
+  <h4 style="color: #fff; margin-bottom: 12px;">App Preferences</h4>
+  
+  <div style="margin-bottom: 12px; font-size: 0.85rem; color: #aaa;">
+    <label>
+      <input type="checkbox" id="toggle-streak-checkbox" checked /> Show Streak Counter
+    </label>
+  </div>
+
+  <div style="margin-bottom: 12px; font-size: 0.85rem; color: #aaa;">
+    <label>
+      <input type="checkbox" id="toggle-bubble-checkbox" checked /> Enable Chrome Floating Bubble
+    </label>
+  </div>
+
+  <div style="margin-bottom: 16px; font-size: 0.85rem; color: #aaa;">
+    <label>
+      <input type="checkbox" id="toggle-filter-checkbox" checked /> Enable Keyword & URL Filtering
+    </label>
+  </div>
+
+  <button id="accessibility-btn" class="action-btn" style="background: #333; font-size: 0.85rem; padding: 10px;">
+    Manage Android System Permissions
+  </button>
+
+  <div style="margin-top: 15px;">
+    <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 6px;">Add Restricted Site:</p>
+    <div style="display: flex; gap: 6px;">
+      <input type="text" id="custom-domain-input" placeholder="website.com" />
+      <button id="add-domain-btn" style="padding: 8px 12px; background: #0088cc; color: white; border: none; border-radius: 6px;">Add</button>
+    </div>
+    <ul id="blocked-domains-list" style="margin-top: 10px; color: #888; font-size: 0.8rem; padding-left: 15px;"></ul>
+    </ul>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">GYE Companion</string>
+    <string name="title_activity_main">GYE Companion</string>
+    <string name="package_name">com.gye.companion</string>
+    <string name="custom_url_scheme">com.gye.companion</string>
+</resources>
